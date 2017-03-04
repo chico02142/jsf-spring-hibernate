@@ -1,0 +1,10 @@
+com\srk\dto\Customer.class
+com\srk\dto\Order.class
+com\srk\entity\embeddable\Amount.class
+com\srk\entity\User.class
+com\srk\config\HibernateConfiguration.class
+com\srk\entity\Customer.class
+com\srk\dto\User.class
+com\srk\dto\BaseDTO.class
+com\srk\entity\BaseEntity.class
+com\srk\entity\Order.class
