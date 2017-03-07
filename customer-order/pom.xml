@@ -14,6 +14,7 @@
 		<jsf.version>2.2.14</jsf.version>
 		<slf4j.version>1.7.24</slf4j.version>
 		<junit.version>4.11</junit.version>
+		<spring-data-jpa.version>1.11.1.RELEASE</spring-data-jpa.version>
 	</properties>
 
 	<repositories>
@@ -96,6 +97,11 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+		    <version>${spring-data-jpa.version}</version>
 		</dependency>
 
 
