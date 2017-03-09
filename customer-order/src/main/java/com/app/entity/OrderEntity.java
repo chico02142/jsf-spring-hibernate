@@ -17,7 +17,7 @@ import com.app.entity.embeddable.Amount;
  *
  */
 @Entity
-@Table(name = "ORDER")
+@Table(name = "ORDERS")
 public class OrderEntity extends BaseEntity {
 
 	/**
@@ -35,7 +35,7 @@ public class OrderEntity extends BaseEntity {
 	private Amount value;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(referencedColumnName = "CUSTOMER_ID")
+	@JoinColumn(name = "CUSTOMER_ID")
 	private CustomerEntity customer;
 
 	public CustomerEntity getCustomer() {

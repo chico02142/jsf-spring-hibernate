@@ -10,7 +10,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "USER")
+@Table(name = "USERS")
 public class UserEntity extends BaseEntity {
 
 	/**

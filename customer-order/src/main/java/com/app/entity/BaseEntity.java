@@ -6,7 +6,16 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
+/**
+ * base entity for all the entities.
+ * contains common fields such as <tt>id</tt> and <tt>version</tt>
+ * 
+ * @author Seetharama Krishna
+ *
+ */
+@MappedSuperclass
 public class BaseEntity implements Serializable {
 
 	/**
@@ -14,9 +23,18 @@ public class BaseEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = -2359135819039456394L;
 	
+	
+	/**
+	 * ID field for all the entities
+	 * This uses TABLE id generation strategy to make compatible the MySQL and Oracle databases.
+	 * 
+	 * <i>Note: Using TABLE strategy may lead to concurrency problems. 
+	 * Based on the database vendor, IDENTITY or SEQUENCE generator should be used.</i>
+	 * 
+	 */
 	@Id
 	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 	
 	@Column(name = "VERSION")

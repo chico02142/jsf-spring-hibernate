@@ -2,6 +2,7 @@ package com.app.config;
 
 import java.util.Properties;
 
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
@@ -15,6 +16,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -25,7 +29,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  */
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.srk.repository"})
+@EnableJpaRepositories(basePackages = {"com.app.repository"})
 @EnableTransactionManagement
 @PersistenceContext
 @PropertySource(value = { "classpath:dataaccess.properties" })
@@ -34,17 +38,18 @@ public class PersistanceContext {
 	@Autowired
 	private Environment environment;
 	
-	/**
-	 * create session factory bean
-	 * @return
-	 */
+	
+	
 	@Bean
-	public LocalSessionFactoryBean sessionFactory() {
-		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-		sessionFactoryBean.setHibernateProperties(hibernateProperties());
-		sessionFactoryBean.setDataSource(dataSource());
-		sessionFactoryBean.setPackagesToScan(new String[] { "com.srk.entity" });
-		return sessionFactoryBean;
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Environment env) {
+		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+		entityManagerFactoryBean.setDataSource(dataSource);
+		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+		entityManagerFactoryBean.setPackagesToScan("com.app.entity");
+		
+		entityManagerFactoryBean.setJpaProperties(hibernateProperties());
+		
+		return entityManagerFactoryBean;
 	}
 	
 	/**
@@ -69,18 +74,17 @@ public class PersistanceContext {
 		properties.setProperty("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
 		properties.setProperty("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
 		properties.setProperty("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
+		properties.setProperty("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hibernate.hbm2ddl.auto"));
 		return properties;
 	}
 
-	/**
-	 * 
-	 * @param sessionFactory
-	 * @return
-	 */
+	
 	@Bean
-	@Autowired
-	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-		return new HibernateTransactionManager(sessionFactory);
+	public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(entityManagerFactory);
+		return transactionManager;
 	}
+	
 
 }
