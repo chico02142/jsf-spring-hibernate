@@ -15,9 +15,11 @@ D:\Seetharama\Workspace\hgitproj\jsf-spring-hibernate\jsf-spring-hibernate\custo
 D:\Seetharama\Workspace\hgitproj\jsf-spring-hibernate\jsf-spring-hibernate\customer-order\src\main\java\com\app\service\impl\CustomerServiceImpl.java
 D:\Seetharama\Workspace\hgitproj\jsf-spring-hibernate\jsf-spring-hibernate\customer-order\src\main\java\com\app\entity\UserEntity.java
 D:\Seetharama\Workspace\hgitproj\jsf-spring-hibernate\jsf-spring-hibernate\customer-order\src\main\java\com\app\repository\CustomerRepository.java
+D:\Seetharama\Workspace\hgitproj\jsf-spring-hibernate\jsf-spring-hibernate\customer-order\src\main\java\com\app\managedbean\UserBean.java
 D:\Seetharama\Workspace\hgitproj\jsf-spring-hibernate\jsf-spring-hibernate\customer-order\src\main\java\com\app\service\impl\UserServiceImpl.java
 D:\Seetharama\Workspace\hgitproj\jsf-spring-hibernate\jsf-spring-hibernate\customer-order\src\main\java\com\app\service\CustomerService.java
 D:\Seetharama\Workspace\hgitproj\jsf-spring-hibernate\jsf-spring-hibernate\customer-order\src\main\java\com\app\repository\BaseRepository.java
+D:\Seetharama\Workspace\hgitproj\jsf-spring-hibernate\jsf-spring-hibernate\customer-order\src\main\java\com\app\managedbean\OrderBean.java
 D:\Seetharama\Workspace\hgitproj\jsf-spring-hibernate\jsf-spring-hibernate\customer-order\src\main\java\com\app\mapper\CustomerMapper.java
 D:\Seetharama\Workspace\hgitproj\jsf-spring-hibernate\jsf-spring-hibernate\customer-order\src\main\java\com\app\entity\CustomerEntity.java
 D:\Seetharama\Workspace\hgitproj\jsf-spring-hibernate\jsf-spring-hibernate\customer-order\src\main\java\com\app\dto\BaseDTO.java

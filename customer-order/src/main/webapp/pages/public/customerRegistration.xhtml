@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<ui:composition template="/pages/public/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+     		<h:form>
+     			<h:outputText value="Name"/>
+     			<p:inputText style="width: 180px;" id="name" required="true" requiredMessage="Required Field" value="#{customerBean.customer.name}"/>
+     			<br/>
+     			<h:outputText value="Email"/>
+     			<p:inputText style="width: 180px;" id="email" required="true" requiredMessage="Required Field" value="#{customerBean.customer.name}"/>
+     			<br/>
+     			<h:outputText value="Address"/>
+     			<p:inputText style="width: 180px;" id="address" required="true" requiredMessage="Required Field" value="#{customerBean.customer.name}"/>
+     			<br/>
+     			
+     		</h:form>
+     	</ui:define>
+</ui:composition>

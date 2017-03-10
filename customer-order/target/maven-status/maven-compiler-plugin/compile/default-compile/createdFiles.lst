@@ -6,12 +6,14 @@ com\app\managedbean\CustomerBean.class
 com\app\service\impl\CustomerServiceImpl.class
 com\app\dto\Order.class
 com\app\mapper\OrderMapper.class
+com\app\managedbean\UserBean.class
 com\app\service\impl\OrderServiceImpl.class
 com\app\repository\UserRepository.class
 com\app\service\impl\UserServiceImpl.class
 com\app\service\UserService.class
 com\app\dto\User.class
 com\app\service\OrderService.class
+com\app\managedbean\OrderBean.class
 com\app\service\CustomerService.class
 com\app\entity\CustomerEntity.class
 com\app\entity\OrderEntity.class
