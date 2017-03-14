@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">customer-order</a> &gt; <a href="index.source.html" class="el_package">com.app.managedbean</a> &gt; <span class="el_source">UserBean.java</span></div><h1>UserBean.java</h1><pre class="source lang-java linenums">package com.app.managedbean;
+
+import java.io.Serializable;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.context.annotation.RequestScope;
+
+import com.app.dto.Customer;
+import com.app.dto.User;
+import com.app.service.CustomerService;
+import com.app.service.UserService;
+
+/**
+ * user backed bean used for login form
+ * 
+ * @author Seetharama Krishna
+ *
+ */
+@Controller
+@RequestScope
+public class UserBean implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8177603054184527196L;
+	
+	private User user;
+	
+<span class="nc" id="L36">	public UserBean() {</span>
+<span class="nc" id="L37">		user = new User();</span>
+<span class="nc" id="L38">	}</span>
+	
+	@Autowired
+	private transient UserService userService;
+	
+	@Autowired
+	private transient CustomerService customerService;
+	
+	
+	/**
+	 * Authenticate the user using login credentials
+	 */
+	public String authenticate() {
+		
+<span class="nc" id="L52">		User loggedInUser = userService.findByUserName(user.getUserName());</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">		if (loggedInUser != null) {</span>
+<span class="nc" id="L54">			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">			if (encoder.matches(user.getPassword(), loggedInUser.getPassword())) {</span>
+<span class="nc" id="L56">				addLoggedInCustomerToSession();</span>
+<span class="nc" id="L57">				return &quot;/pages/private/dashboard&quot;;</span>
+			}
+		}
+<span class="nc" id="L60">		return &quot;login&quot;;</span>
+	}
+
+	
+	private void addLoggedInCustomerToSession() {
+<span class="nc" id="L65">		Customer customer  = customerService.getCustomerByUserName(user.getUserName());</span>
+		
+<span class="nc" id="L67">		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();</span>
+<span class="nc" id="L68">		HttpSession session = (HttpSession) context.getSession(true);</span>
+<span class="nc" id="L69">		session.setAttribute(Customer.class.getSimpleName(), customer);</span>
+<span class="nc" id="L70">	}</span>
+
+	public User getUser() {
+<span class="nc" id="L73">		return user;</span>
+	}
+
+	public void setUser(User user) {
+<span class="nc" id="L77">		this.user = user;</span>
+<span class="nc" id="L78">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

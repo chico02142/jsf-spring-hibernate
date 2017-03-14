@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BaseService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">customer-order</a> &gt; <a href="index.source.html" class="el_package">com.app.service</a> &gt; <span class="el_source">BaseService.java</span></div><h1>BaseService.java</h1><pre class="source lang-java linenums">package com.app.service;
+
+import java.util.List;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import com.app.dto.BaseDTO;
+import com.app.entity.BaseEntity;
+import com.app.mapper.BaseMapper;
+import com.app.repository.BaseRepository;
+
+/**
+ * base service implemented by all components in service layer
+ * this consists methods require from CRUD operations
+ * 
+ * @author Seetharama Krishna
+ *
+ * @param &lt;D&gt; object that extends BaseDTO
+ */
+public interface BaseService &lt;D extends BaseDTO, E extends BaseEntity&gt; {
+	
+	/**
+	 * get repository of the service component
+	 * @return
+	 */
+	BaseRepository&lt;E, Long&gt; getRepository();
+	
+	/**
+	 * Get mapper of the service component
+	 * @return
+	 */
+	BaseMapper&lt;D, E&gt; getMapper();
+	
+	/**
+	 * save or update the data
+	 * map the DTO to entity before save or update
+	 * @param d
+	 * @return saved DTO
+	 */
+	@Transactional
+	default D saveOrUpdate(D d) {
+<span class="nc" id="L42">		E e = getRepository().save(getMapper().mapDtoToEntity(d));</span>
+<span class="nc" id="L43">		return getMapper().mapEntityToDto(e);</span>
+	}
+	
+	/**
+	 * get all entities in the data store.
+	 * maps the entities to DTOs before returning
+	 * 
+	 * @return {@link List} of DTOs
+	 * @see BaseMapper
+	 */
+	@Transactional(readOnly = true)
+	default List&lt;D&gt; findAll() {
+<span class="nc" id="L55">		return getMapper().mapEntityListToDtoList(getRepository().findAll());</span>
+	}
+	
+	/**
+	 * get the DTO from data store by the give &lt;tt&gt;id&lt;/tt&gt;
+	 * 
+	 * @param id
+	 * @return dto of given id
+	 */
+	@Transactional(readOnly = true)
+	default D findById(Long id) {
+<span class="nc" id="L66">		return getMapper().mapEntityToDto(getRepository().findOne(id));</span>
+	}
+	
+	/**
+	 * deletes an entity by give &lt;tt&gt;id&lt;/tt&gt;
+	 * 
+	 * @param id of the entity
+	 */
+	@Transactional
+	default void delete(Long id) {
+<span class="nc" id="L76">		getRepository().delete(id);</span>
+<span class="nc" id="L77">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

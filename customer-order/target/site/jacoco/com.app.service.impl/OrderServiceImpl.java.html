@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">customer-order</a> &gt; <a href="index.source.html" class="el_package">com.app.service.impl</a> &gt; <span class="el_source">OrderServiceImpl.java</span></div><h1>OrderServiceImpl.java</h1><pre class="source lang-java linenums">package com.app.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.app.dto.Order;
+import com.app.entity.OrderEntity;
+import com.app.mapper.BaseMapper;
+import com.app.mapper.OrderMapper;
+import com.app.repository.BaseRepository;
+import com.app.repository.OrderRepository;
+import com.app.service.OrderService;
+
+/**
+ * 
+ * @author Seetharama Krishna
+ *
+ */
+@Service(&quot;orderService&quot;)
+<span class="nc" id="L23">public class OrderServiceImpl implements OrderService {</span>
+	
+	@Autowired
+	private OrderRepository orderRepository;
+	
+	@Autowired
+	private OrderMapper orderMapper;
+
+	@Override
+	public BaseRepository&lt;OrderEntity, Long&gt; getRepository() {
+<span class="nc" id="L33">		return orderRepository;</span>
+	}
+
+	@Override
+	public BaseMapper&lt;Order, OrderEntity&gt; getMapper() {
+<span class="nc" id="L38">		return orderMapper;</span>
+	}
+
+	/**
+	 * @see OrderService#getAllCustomerOrders(Long)
+	 */
+	@Transactional
+	@Override
+	public List&lt;Order&gt; getAllCustomerOrders(Long customerId) {
+<span class="nc" id="L47">		return orderMapper.mapEntityListToDtoList(orderRepository.findByCustomerId(customerId));</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

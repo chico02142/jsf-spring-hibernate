@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">customer-order</a> &gt; <a href="index.source.html" class="el_package">com.app.managedbean</a> &gt; <span class="el_source">OrderBean.java</span></div><h1>OrderBean.java</h1><pre class="source lang-java linenums">package com.app.managedbean;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import com.app.dto.Customer;
+import com.app.dto.Order;
+import com.app.service.OrderService;
+
+/**
+ * Order backed bean
+ * This object is with custome scope &lt;tt&gt;view&lt;/tt&gt; to match with the {@link ViewScoped} in JSF
+ * 
+ * @author Seetharama Krishna
+ *
+ */
+@Controller
+@Scope(&quot;view&quot;)
+<span class="nc" id="L30">public class OrderBean implements Serializable {</span>
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7629488293840729328L;
+	
+	private Order order;
+	private List&lt;Order&gt; existingOrders;
+	
+	
+	@Autowired
+	private transient OrderService orderService;
+	
+	/**
+	 * Initialise the properties with default values.
+	 */
+	@PostConstruct
+	public void init() {
+<span class="nc" id="L49">		Customer customer = getCustomerFromSession();</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">		if (customer == null) {</span>
+<span class="nc" id="L51">			existingOrders = new ArrayList&lt;&gt;();</span>
+		} else {
+<span class="nc" id="L53">			existingOrders = orderService.getAllCustomerOrders(customer.getId());			</span>
+		}
+
+<span class="nc" id="L56">		order  = new Order();</span>
+<span class="nc" id="L57">	}</span>
+	
+
+	/**
+	 * Get the logged in customer details from the session
+	 * @return
+	 */
+	private Customer getCustomerFromSession() {
+<span class="nc" id="L65">		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">		if (context != null) {</span>
+<span class="nc" id="L67">			HttpSession session = (HttpSession) context.getSession(false);</span>
+<span class="nc" id="L68">			return (Customer) session.getAttribute(Customer.class.getSimpleName());</span>
+		}
+<span class="nc" id="L70">		return null;</span>
+	}
+	
+	/**
+	 * Save or update the order information
+	 * Reload the table after deleting the record
+	 */
+	public void saveOrUpdateOrder() {
+<span class="nc" id="L78">		Customer customer = getCustomerFromSession();</span>
+<span class="nc" id="L79">		order.setCustomerId(customer.getId());</span>
+<span class="nc" id="L80">		orderService.saveOrUpdate(order);</span>
+<span class="nc" id="L81">		existingOrders = orderService.getAllCustomerOrders(customer.getId());</span>
+<span class="nc" id="L82">		order = new Order(); //Reset the order fields after saving</span>
+<span class="nc" id="L83">	}</span>
+	
+	
+	/**
+	 * Edit order information.
+	 * Populate the form with selected order to edit and then save
+	 * @param order
+	 */
+	public void editOrder(Order order) {
+<span class="nc" id="L92">		this.order = order;</span>
+<span class="nc" id="L93">	}</span>
+	
+	/**
+	 * Delete order information
+	 * Reload the table after deleting the record
+	 * @param id ID to delete the record
+	 */
+	public void deleteOrder(Long id) {
+<span class="nc" id="L101">		orderService.delete(id);</span>
+<span class="nc" id="L102">		Customer customer = getCustomerFromSession();</span>
+<span class="nc" id="L103">		existingOrders = orderService.getAllCustomerOrders(customer.getId());</span>
+<span class="nc" id="L104">	}</span>
+	
+	public Order getOrder() {
+<span class="nc" id="L107">		return order;</span>
+	}
+	public void setOrder(Order order) {
+<span class="nc" id="L110">		this.order = order;</span>
+<span class="nc" id="L111">	}</span>
+	public List&lt;Order&gt; getExistingOrders() {
+<span class="nc" id="L113">		return existingOrders;</span>
+	}
+	public void setExistingOrders(List&lt;Order&gt; existingOrders) {
+<span class="nc" id="L116">		this.existingOrders = existingOrders;</span>
+<span class="nc" id="L117">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PersistanceContext.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">customer-order</a> &gt; <a href="index.source.html" class="el_package">com.app.config</a> &gt; <span class="el_source">PersistanceContext.java</span></div><h1>PersistanceContext.java</h1><pre class="source lang-java linenums">package com.app.config;
+
+import java.util.Properties;
+
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+/**
+ * &lt;p&gt;
+ * 		configures the hibernate data source
+ * &lt;/p&gt;
+ * @author Seetharama Krishna
+ *
+ */
+@Configuration
+@EnableJpaRepositories(basePackages = {&quot;com.app.repository&quot;})
+@EnableTransactionManagement
+@PersistenceContext
+@PropertySource(value = { &quot;classpath:dataaccess.properties&quot; })
+<span class="nc" id="L33">public class PersistanceContext {</span>
+	
+	/**
+	 * Loads the properties files. This is required to access the database properties
+	 */
+	@Autowired
+	private Environment environment;
+	
+	/**
+	 * Entity manager factory bean
+	 * @param dataSource
+	 * @param env
+	 * @return
+	 */
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Environment env) {
+<span class="nc" id="L49">		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();</span>
+<span class="nc" id="L50">		entityManagerFactoryBean.setDataSource(dataSource);</span>
+<span class="nc" id="L51">		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());</span>
+<span class="nc" id="L52">		entityManagerFactoryBean.setPackagesToScan(&quot;com.app.entity&quot;);</span>
+		
+<span class="nc" id="L54">		entityManagerFactoryBean.setJpaProperties(hibernateProperties());</span>
+		
+<span class="nc" id="L56">		return entityManagerFactoryBean;</span>
+	}
+	
+	/**
+	 * Create datasource
+	 * @return {@link DataSource}
+	 */
+	@Bean
+	public DataSource dataSource() {
+<span class="nc" id="L65">		DriverManagerDataSource dataSource = new DriverManagerDataSource();</span>
+<span class="nc" id="L66">		dataSource.setDriverClassName(environment.getRequiredProperty(&quot;jdbc.driverClassName&quot;));</span>
+<span class="nc" id="L67">		dataSource.setUrl(environment.getRequiredProperty(&quot;jdbc.url&quot;));</span>
+<span class="nc" id="L68">		dataSource.setUsername(environment.getRequiredProperty(&quot;jdbc.username&quot;));</span>
+<span class="nc" id="L69">		dataSource.setPassword(environment.getRequiredProperty(&quot;jdbc.password&quot;));</span>
+<span class="nc" id="L70">		return dataSource;</span>
+	}
+	
+	/*
+	 * set hibernate properties
+	 */
+	private Properties hibernateProperties() {
+<span class="nc" id="L77">		Properties properties = new Properties();</span>
+<span class="nc" id="L78">		properties.setProperty(&quot;hibernate.dialect&quot;, environment.getRequiredProperty(&quot;hibernate.dialect&quot;));</span>
+<span class="nc" id="L79">		properties.setProperty(&quot;hibernate.show_sql&quot;, environment.getRequiredProperty(&quot;hibernate.show_sql&quot;));</span>
+<span class="nc" id="L80">		properties.setProperty(&quot;hibernate.format_sql&quot;, environment.getRequiredProperty(&quot;hibernate.format_sql&quot;));</span>
+<span class="nc" id="L81">		properties.setProperty(&quot;hibernate.hbm2ddl.auto&quot;, environment.getRequiredProperty(&quot;hibernate.hbm2ddl.auto&quot;));</span>
+<span class="nc" id="L82">		return properties;</span>
+	}
+
+	/**
+	 * Bean for JPA transaction manager
+	 * @param entityManagerFactory
+	 * @return
+	 */
+	@Bean
+	public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+<span class="nc" id="L92">		JpaTransactionManager transactionManager = new JpaTransactionManager();</span>
+<span class="nc" id="L93">		transactionManager.setEntityManagerFactory(entityManagerFactory);</span>
+<span class="nc" id="L94">		return transactionManager;</span>
+	}
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
