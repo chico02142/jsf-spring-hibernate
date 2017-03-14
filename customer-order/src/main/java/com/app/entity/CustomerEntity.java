@@ -86,8 +86,5 @@ public class CustomerEntity extends BaseEntity {
 	public String toString() {
 		return String.format("Id: %d; name: %s; email: %s", getId(), getName(), getEmail());
 	}
-	
-	
-	
 
 }

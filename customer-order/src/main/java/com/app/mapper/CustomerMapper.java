@@ -14,16 +14,33 @@ import com.app.entity.CustomerEntity;
 @Component
 public class CustomerMapper implements BaseMapper<Customer, CustomerEntity> {
 
+	/**
+	 * @see BaseMapper#mapEntityToDto(com.app.entity.BaseEntity)
+	 */
 	@Override
 	public Customer mapEntityToDto(CustomerEntity entity) {
-		// TODO Auto-generated method stub
-		return null;
+		if (entity == null) {
+			return null;
+		}
+		Customer customer = new Customer();
+		baseMappingEntityToDto(customer, entity);
+		customer.setAddress(entity.getAddress());
+		customer.setName(entity.getName());
+		customer.setEmail(entity.getEmail());
+		return customer;
 	}
 
+	/**
+	 * @see BaseMapper#mapDtoToEntity(com.app.dto.BaseDTO)
+	 */
 	@Override
 	public CustomerEntity mapDtoToEntity(Customer dto) {
-		// TODO Auto-generated method stub
-		return null;
+		CustomerEntity customerEntity = new CustomerEntity();
+		baseMappingDtoToEntity(dto, customerEntity);
+		customerEntity.setName(dto.getName());
+		customerEntity.setAddress(dto.getAddress());
+		customerEntity.setEmail(dto.getEmail());
+		return customerEntity;
 	}
 
 }

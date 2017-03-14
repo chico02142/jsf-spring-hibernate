@@ -3,6 +3,7 @@ com\app\service\BaseService.class
 com\app\mapper\CustomerMapper.class
 com\app\repository\OrderRepository.class
 com\app\managedbean\CustomerBean.class
+com\app\util\Currency.class
 com\app\service\impl\CustomerServiceImpl.class
 com\app\dto\Order.class
 com\app\mapper\OrderMapper.class
@@ -19,8 +20,10 @@ com\app\entity\CustomerEntity.class
 com\app\entity\OrderEntity.class
 com\app\config\PersistanceContext.class
 com\app\repository\CustomerRepository.class
+com\app\util\ViewScope.class
 com\app\entity\embeddable\Amount.class
 com\app\dto\BaseDTO.class
+com\app\config\AspectLogConfig.class
 com\app\dto\Customer.class
 com\app\mapper\BaseMapper.class
 com\app\entity\UserEntity.class

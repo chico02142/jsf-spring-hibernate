@@ -6,7 +6,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +13,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -35,11 +32,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource(value = { "classpath:dataaccess.properties" })
 public class PersistanceContext {
 	
+	/**
+	 * Loads the properties files. This is required to access the database properties
+	 */
 	@Autowired
 	private Environment environment;
 	
-	
-	
+	/**
+	 * Entity manager factory bean
+	 * @param dataSource
+	 * @param env
+	 * @return
+	 */
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Environment env) {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
@@ -78,7 +82,11 @@ public class PersistanceContext {
 		return properties;
 	}
 
-	
+	/**
+	 * Bean for JPA transaction manager
+	 * @param entityManagerFactory
+	 * @return
+	 */
 	@Bean
 	public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();

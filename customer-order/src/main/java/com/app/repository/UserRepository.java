@@ -13,4 +13,12 @@ import com.app.entity.UserEntity;
 @Repository
 public interface UserRepository extends BaseRepository<UserEntity, Long> {
 
+	/**
+	 * Find the user by user name
+	 * 
+	 * @param userName
+	 * @return
+	 */
+	UserEntity findByUserName(String userName);
+
 }

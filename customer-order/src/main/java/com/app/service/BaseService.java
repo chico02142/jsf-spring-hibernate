@@ -2,6 +2,8 @@ package com.app.service;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.app.dto.BaseDTO;
 import com.app.entity.BaseEntity;
 import com.app.mapper.BaseMapper;
@@ -35,6 +37,7 @@ public interface BaseService <D extends BaseDTO, E extends BaseEntity> {
 	 * @param d
 	 * @return saved DTO
 	 */
+	@Transactional
 	default D saveOrUpdate(D d) {
 		E e = getRepository().save(getMapper().mapDtoToEntity(d));
 		return getMapper().mapEntityToDto(e);
@@ -47,6 +50,7 @@ public interface BaseService <D extends BaseDTO, E extends BaseEntity> {
 	 * @return {@link List} of DTOs
 	 * @see BaseMapper
 	 */
+	@Transactional(readOnly = true)
 	default List<D> findAll() {
 		return getMapper().mapEntityListToDtoList(getRepository().findAll());
 	}
@@ -57,11 +61,18 @@ public interface BaseService <D extends BaseDTO, E extends BaseEntity> {
 	 * @param id
 	 * @return dto of given id
 	 */
+	@Transactional(readOnly = true)
 	default D findById(Long id) {
 		return getMapper().mapEntityToDto(getRepository().findOne(id));
 	}
 	
-	
-	
-
+	/**
+	 * deletes an entity by give <tt>id</tt>
+	 * 
+	 * @param id of the entity
+	 */
+	@Transactional
+	default void delete(Long id) {
+		getRepository().delete(id);
+	}
 }

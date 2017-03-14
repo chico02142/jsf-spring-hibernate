@@ -6,6 +6,7 @@ import com.app.dto.User;
 import com.app.entity.UserEntity;
 
 /**
+ * Mapper for User
  * 
  * @author Seetharama Krishna
  *
@@ -15,14 +16,23 @@ public class UserMapper implements BaseMapper<User, UserEntity> {
 
 	@Override
 	public User mapEntityToDto(UserEntity entity) {
-		// TODO Auto-generated method stub
-		return null;
+		if (entity == null) {
+			return null;
+		}
+		User user = new User();
+		baseMappingEntityToDto(user, entity);
+		user.setUserName(entity.getUserName());
+		user.setPassword(entity.getPassword());
+		return user;
 	}
 
 	@Override
 	public UserEntity mapDtoToEntity(User dto) {
-		// TODO Auto-generated method stub
-		return null;
+		UserEntity entity = new UserEntity();
+		baseMappingDtoToEntity(dto, entity);
+		entity.setUserName(dto.getUserName());
+		entity.setPassword(dto.getPassword());
+		return entity;
 	}
 
 }

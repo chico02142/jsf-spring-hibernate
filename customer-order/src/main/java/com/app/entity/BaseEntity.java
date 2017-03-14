@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 
 /**
  * base entity for all the entities.
@@ -37,6 +38,11 @@ public class BaseEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 	
+	/**
+	 * Version field to track the version of the database row. 
+	 * This is necessary for hibernate to avoid stale data errors.
+	 */
+	@Version
 	@Column(name = "VERSION")
 	private Long version;
 	

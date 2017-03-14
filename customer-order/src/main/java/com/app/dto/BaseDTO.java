@@ -16,7 +16,13 @@ public class BaseDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = -2874185747345003887L;
 	
+	/**
+	 * ID field from the database
+	 */
 	private Long id;
+	/**
+	 * Version from the database.
+	 */
 	private Long version;
 	
 	public Long getId() {

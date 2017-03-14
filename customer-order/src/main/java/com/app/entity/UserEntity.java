@@ -37,6 +37,19 @@ public class UserEntity extends BaseEntity {
 		this.password = password;
 	}
 	
+	/**
+	 * @see Object#equals(Object)
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (o == null || o.getClass() != this.getClass()) {
+			return false;
+		}
+		UserEntity u = (UserEntity) o;
+		return u.getUserName() != null && this.getUserName() != null 
+				&& u.getUserName().equals(this.getUserName());
+	}
+	
 	
 
 }

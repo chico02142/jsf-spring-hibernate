@@ -18,7 +18,14 @@ public class Order extends BaseDTO{
 	private String name;
 	private String description;
 	private BigDecimal value;
+	private Long customerId;
 	
+	public Long getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
+	}
 	public String getName() {
 		return name;
 	}

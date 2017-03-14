@@ -13,4 +13,11 @@ import com.app.entity.CustomerEntity;
 @Repository
 public interface CustomerRepository extends BaseRepository<CustomerEntity, Long> {
 
+	/**
+	 * Get the customer detail by Email which is basically the user name for authentication
+	 * @param userName
+	 * @return
+	 */
+	CustomerEntity findByEmail(String userName);
+
 }
