@@ -6,6 +6,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -31,11 +33,13 @@ public class UserBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 8177603054184527196L;
 	
+<span class="nc" id="L36">	private static final Logger LOGGER = LogManager.getLogger(UserBean.class);</span>
+	
 	private User user;
 	
-<span class="nc" id="L36">	public UserBean() {</span>
-<span class="nc" id="L37">		user = new User();</span>
-<span class="nc" id="L38">	}</span>
+<span class="nc" id="L40">	public UserBean() {</span>
+<span class="nc" id="L41">		user = new User();</span>
+<span class="nc" id="L42">	}</span>
 	
 	@Autowired
 	private transient UserService userService;
@@ -48,34 +52,35 @@ public class UserBean implements Serializable {
 	 * Authenticate the user using login credentials
 	 */
 	public String authenticate() {
-		
-<span class="nc" id="L52">		User loggedInUser = userService.findByUserName(user.getUserName());</span>
-<span class="nc bnc" id="L53" title="All 2 branches missed.">		if (loggedInUser != null) {</span>
-<span class="nc" id="L54">			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
-<span class="nc bnc" id="L55" title="All 2 branches missed.">			if (encoder.matches(user.getPassword(), loggedInUser.getPassword())) {</span>
-<span class="nc" id="L56">				addLoggedInCustomerToSession();</span>
-<span class="nc" id="L57">				return &quot;/pages/private/dashboard&quot;;</span>
+<span class="nc" id="L55">		LOGGER.debug(&quot;debug&quot;);</span>
+<span class="nc" id="L56">		LOGGER.info(&quot;Infor&quot;);</span>
+<span class="nc" id="L57">		User loggedInUser = userService.findByUserName(user.getUserName());</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">		if (loggedInUser != null) {</span>
+<span class="nc" id="L59">			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">			if (encoder.matches(user.getPassword(), loggedInUser.getPassword())) {</span>
+<span class="nc" id="L61">				addLoggedInCustomerToSession();</span>
+<span class="nc" id="L62">				return &quot;/pages/private/dashboard&quot;;</span>
 			}
 		}
-<span class="nc" id="L60">		return &quot;login&quot;;</span>
+<span class="nc" id="L65">		return &quot;login&quot;;</span>
 	}
 
 	
 	private void addLoggedInCustomerToSession() {
-<span class="nc" id="L65">		Customer customer  = customerService.getCustomerByUserName(user.getUserName());</span>
+<span class="nc" id="L70">		Customer customer  = customerService.getCustomerByUserName(user.getUserName());</span>
 		
-<span class="nc" id="L67">		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();</span>
-<span class="nc" id="L68">		HttpSession session = (HttpSession) context.getSession(true);</span>
-<span class="nc" id="L69">		session.setAttribute(Customer.class.getSimpleName(), customer);</span>
-<span class="nc" id="L70">	}</span>
+<span class="nc" id="L72">		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();</span>
+<span class="nc" id="L73">		HttpSession session = (HttpSession) context.getSession(true);</span>
+<span class="nc" id="L74">		session.setAttribute(Customer.class.getSimpleName(), customer);</span>
+<span class="nc" id="L75">	}</span>
 
 	public User getUser() {
-<span class="nc" id="L73">		return user;</span>
+<span class="nc" id="L78">		return user;</span>
 	}
 
 	public void setUser(User user) {
-<span class="nc" id="L77">		this.user = user;</span>
-<span class="nc" id="L78">	}</span>
+<span class="nc" id="L82">		this.user = user;</span>
+<span class="nc" id="L83">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

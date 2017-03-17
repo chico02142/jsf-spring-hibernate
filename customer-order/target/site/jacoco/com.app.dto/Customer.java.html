@@ -6,7 +6,7 @@
  * @author Seetharama Krishna
  *
  */
-<span class="nc" id="L9">public class Customer extends BaseDTO {</span>
+<span class="fc" id="L9">public class Customer extends BaseDTO {</span>
 
 	/**
 	 * 
@@ -20,20 +20,43 @@
 <span class="nc" id="L20">		return name;</span>
 	}
 	public void setName(String name) {
-<span class="nc" id="L23">		this.name = name;</span>
-<span class="nc" id="L24">	}</span>
+<span class="fc" id="L23">		this.name = name;</span>
+<span class="fc" id="L24">	}</span>
 	public String getEmail() {
-<span class="nc" id="L26">		return email;</span>
+<span class="fc" id="L26">		return email;</span>
 	}
 	public void setEmail(String email) {
-<span class="nc" id="L29">		this.email = email;</span>
-<span class="nc" id="L30">	}</span>
+<span class="fc" id="L29">		this.email = email;</span>
+<span class="fc" id="L30">	}</span>
 	public String getAddress() {
 <span class="nc" id="L32">		return address;</span>
 	}
 	public void setAddress(String address) {
-<span class="nc" id="L35">		this.address = address;</span>
-<span class="nc" id="L36">	}</span>
+<span class="fc" id="L35">		this.address = address;</span>
+<span class="fc" id="L36">	}</span>
+	
+	@Override
+	public boolean equals(Object o) {
+<span class="pc bpc" id="L40" title="2 of 4 branches missed.">		if (o == null || o.getClass() != this.getClass()) {</span>
+<span class="nc" id="L41">			return false;</span>
+		}
+<span class="fc" id="L43">		Customer c = (Customer) o;</span>
+		
+<span class="pc bpc" id="L45" title="2 of 4 branches missed.">		return c.getEmail() != null &amp;&amp; this.getEmail() != null </span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">				&amp;&amp; c.getEmail().equalsIgnoreCase(this.getEmail());</span>
+	}
+	@Override
+	public int hashCode() {
+<span class="nc" id="L50">		int hashCode = 31;</span>
+<span class="nc" id="L51">		hashCode = hashCode + this.getEmail().hashCode() * 17;</span>
+<span class="nc" id="L52">		return hashCode;</span>
+	}
+	@Override
+	public String toString() {
+<span class="nc" id="L56">		return String.format(&quot;Customer: name: %s email: %s address: %s&quot;, this.name, this.email, this.address);</span>
+	}
+	
+	
 	
 	
 

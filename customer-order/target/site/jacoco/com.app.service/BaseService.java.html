@@ -39,8 +39,8 @@ public interface BaseService &lt;D extends BaseDTO, E extends BaseEntity&gt; {
 	 */
 	@Transactional
 	default D saveOrUpdate(D d) {
-<span class="nc" id="L42">		E e = getRepository().save(getMapper().mapDtoToEntity(d));</span>
-<span class="nc" id="L43">		return getMapper().mapEntityToDto(e);</span>
+<span class="fc" id="L42">		E e = getRepository().save(getMapper().mapDtoToEntity(d));</span>
+<span class="fc" id="L43">		return getMapper().mapEntityToDto(e);</span>
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public interface BaseService &lt;D extends BaseDTO, E extends BaseEntity&gt; {
 	 */
 	@Transactional(readOnly = true)
 	default List&lt;D&gt; findAll() {
-<span class="nc" id="L55">		return getMapper().mapEntityListToDtoList(getRepository().findAll());</span>
+<span class="fc" id="L55">		return getMapper().mapEntityListToDtoList(getRepository().findAll());</span>
 	}
 	
 	/**

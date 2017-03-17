@@ -18,7 +18,7 @@ import com.app.service.CustomerService;
  *
  */
 @Service(&quot;customerService&quot;)
-<span class="nc" id="L21">public class CustomerServiceImpl implements CustomerService {</span>
+<span class="fc" id="L21">public class CustomerServiceImpl implements CustomerService {</span>
 	
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -42,7 +42,7 @@ import com.app.service.CustomerService;
 	@Transactional
 	@Override
 	public Customer getCustomerByUserName(String userName) {
-<span class="nc" id="L45">		return customerMapper.mapEntityToDto(customerRepository.findByEmail(userName));</span>
+<span class="fc" id="L45">		return customerMapper.mapEntityToDto(customerRepository.findByEmail(userName));</span>
 	}
 
 }

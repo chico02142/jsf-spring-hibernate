@@ -6,22 +6,25 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.stereotype.Component;
 
 @Aspect
-<span class="nc" id="L11">public class AspectLogConfig {</span>
+@Component
+<span class="nc" id="L13">public class AspectLogConfig {</span>
 	
-<span class="nc" id="L13">	private static final Logger LOG = LogManager.getLogger();</span>
+<span class="nc" id="L15">	private static final Logger LOG = LogManager.getLogger();</span>
 	
-	@Around(&quot;execution(com.app.service.impl..*&quot;)
+	@Around(&quot;within(com.app.service.impl.*)&quot;)
 	public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
-<span class="nc" id="L17">		long start = System.currentTimeMillis();</span>
-<span class="nc" id="L18">		Object result = joinPoint.proceed();</span>
-<span class="nc" id="L19">		LOG.debug(&quot;#%s(%s): %s in %[msec]s&quot;, </span>
-<span class="nc" id="L20">				MethodSignature.class.cast(joinPoint.getSignature()).getMethod().getName(),</span>
-<span class="nc" id="L21">				joinPoint.getArgs(),</span>
+<span class="nc" id="L19">		long start = System.currentTimeMillis();</span>
+<span class="nc" id="L20">		Object result = joinPoint.proceed();</span>
+<span class="nc" id="L21">		LOG.debug(&quot;Hello&quot;);</span>
+<span class="nc" id="L22">		LOG.debug(&quot;{}({}): {} in {}msec(s)&quot;, </span>
+<span class="nc" id="L23">				MethodSignature.class.cast(joinPoint.getSignature()).getMethod().getName(),</span>
+<span class="nc" id="L24">				joinPoint.getArgs(),</span>
 				result,
-<span class="nc" id="L23">				System.currentTimeMillis() - start);</span>
-<span class="nc" id="L24">		return result;</span>
+<span class="nc" id="L26">				System.currentTimeMillis() - start);</span>
+<span class="nc" id="L27">		return result;</span>
 	}
 	
 

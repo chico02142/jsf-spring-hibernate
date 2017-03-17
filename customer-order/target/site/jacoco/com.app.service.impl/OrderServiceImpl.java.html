@@ -20,7 +20,7 @@ import com.app.service.OrderService;
  *
  */
 @Service(&quot;orderService&quot;)
-<span class="nc" id="L23">public class OrderServiceImpl implements OrderService {</span>
+<span class="fc" id="L23">public class OrderServiceImpl implements OrderService {</span>
 	
 	@Autowired
 	private OrderRepository orderRepository;
@@ -44,7 +44,7 @@ import com.app.service.OrderService;
 	@Transactional
 	@Override
 	public List&lt;Order&gt; getAllCustomerOrders(Long customerId) {
-<span class="nc" id="L47">		return orderMapper.mapEntityListToDtoList(orderRepository.findByCustomerId(customerId));</span>
+<span class="fc" id="L47">		return orderMapper.mapEntityListToDtoList(orderRepository.findByCustomerId(customerId));</span>
 	}
 
 }

@@ -29,6 +29,29 @@
 <span class="fc" id="L29">		this.password = password;</span>
 <span class="fc" id="L30">	}</span>
 	
+	/**
+	 * @see Object#equals(Object)
+	 */
+	@Override
+	public boolean equals(Object o) {
+<span class="pc bpc" id="L37" title="2 of 4 branches missed.">		if (o == null || o.getClass() != this.getClass()) {</span>
+<span class="nc" id="L38">			return false;</span>
+		}
+<span class="fc" id="L40">		User u = (User) o;</span>
+<span class="pc bpc" id="L41" title="2 of 4 branches missed.">		return u.getUserName() != null &amp;&amp; this.getUserName() != null </span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">				&amp;&amp; u.getUserName().equals(this.getUserName());</span>
+	}
+	
+	/**
+	 * @see Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+<span class="nc" id="L50">		int hashCode = 31;</span>
+<span class="nc" id="L51">		hashCode = hashCode + this.getUserName().hashCode() * 17;</span>
+<span class="nc" id="L52">		return hashCode;</span>
+	}
+	
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

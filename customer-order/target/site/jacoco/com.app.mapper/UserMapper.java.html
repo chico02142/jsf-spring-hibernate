@@ -16,14 +16,14 @@ import com.app.entity.UserEntity;
 
 	@Override
 	public User mapEntityToDto(UserEntity entity) {
-<span class="nc bnc" id="L19" title="All 2 branches missed.">		if (entity == null) {</span>
+<span class="pc bpc" id="L19" title="1 of 2 branches missed.">		if (entity == null) {</span>
 <span class="nc" id="L20">			return null;</span>
 		}
-<span class="nc" id="L22">		User user = new User();</span>
-<span class="nc" id="L23">		baseMappingEntityToDto(user, entity);</span>
-<span class="nc" id="L24">		user.setUserName(entity.getUserName());</span>
-<span class="nc" id="L25">		user.setPassword(entity.getPassword());</span>
-<span class="nc" id="L26">		return user;</span>
+<span class="fc" id="L22">		User user = new User();</span>
+<span class="fc" id="L23">		baseMappingEntityToDto(user, entity);</span>
+<span class="fc" id="L24">		user.setUserName(entity.getUserName());</span>
+<span class="fc" id="L25">		user.setPassword(entity.getPassword());</span>
+<span class="fc" id="L26">		return user;</span>
 	}
 
 	@Override

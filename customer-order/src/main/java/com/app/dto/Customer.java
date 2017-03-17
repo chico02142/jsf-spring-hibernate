@@ -35,6 +35,29 @@ public class Customer extends BaseDTO {
 		this.address = address;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (o == null || o.getClass() != this.getClass()) {
+			return false;
+		}
+		Customer c = (Customer) o;
+		
+		return c.getEmail() != null && this.getEmail() != null 
+				&& c.getEmail().equalsIgnoreCase(this.getEmail());
+	}
+	@Override
+	public int hashCode() {
+		int hashCode = 31;
+		hashCode = hashCode + this.getEmail().hashCode() * 17;
+		return hashCode;
+	}
+	@Override
+	public String toString() {
+		return String.format("Customer: name: %s email: %s address: %s", this.name, this.email, this.address);
+	}
+	
+	
+	
 	
 
 }

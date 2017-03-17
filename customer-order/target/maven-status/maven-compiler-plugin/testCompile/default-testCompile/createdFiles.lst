@@ -1,4 +1,5 @@
 com\app\service\test\OrderServiceTest.class
+com\app\test\util\DataObjectFactory.class
 com\app\mapper\test\UserMapperTest.class
 com\app\service\test\UserServiceTest.class
 com\app\service\test\CustomerServiceTest.class

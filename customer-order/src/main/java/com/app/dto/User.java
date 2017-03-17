@@ -29,5 +29,28 @@ public class User extends BaseDTO {
 		this.password = password;
 	}
 	
+	/**
+	 * @see Object#equals(Object)
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (o == null || o.getClass() != this.getClass()) {
+			return false;
+		}
+		User u = (User) o;
+		return u.getUserName() != null && this.getUserName() != null 
+				&& u.getUserName().equals(this.getUserName());
+	}
+	
+	/**
+	 * @see Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		int hashCode = 31;
+		hashCode = hashCode + this.getUserName().hashCode() * 17;
+		return hashCode;
+	}
+	
 
 }
